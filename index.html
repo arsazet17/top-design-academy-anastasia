@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#f39ab4" />
+  <meta name="description" content="TOP Design Academy by Anastasia — учебный помощник начинающего графического дизайнера." />
+  <link rel="manifest" href="manifest.webmanifest?v=20260829-1400" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=20260829-1400" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png?v=20260829-1400" />
+  <link rel="stylesheet" href="styles.css?v=20260829-1400" />
+  <title>TOP Design Academy by Anastasia</title>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <div id="backdrop" class="backdrop" hidden></div>
+    <aside id="sidebar" class="sidebar" aria-label="Главное меню">
+      <div class="brand">
+        <div class="brand-mark">Top<span>✎</span></div>
+        <div class="brand-sub">DESIGN ACADEMY</div>
+        <div class="brand-by">by Anastasia</div>
+      </div>
+      <nav id="sideNav" class="side-nav"></nav>
+      <div class="profile-card">
+        <img src="assets/anastasia-profile.webp?v=20260829-1400" alt="Анастасия" class="profile-photo" />
+        <strong>Anastasia</strong>
+        <span class="badge">Студент</span>
+        <div class="profile-progress">
+          <div class="small">Мой прогресс</div>
+          <div>Уровень 1 · Старт</div>
+          <div class="progress"><span id="sideProgressBar" style="width:10%"></span></div>
+          <div class="small"><span id="sideXp">100</span> / 1000 XP</div>
+        </div>
+      </div>
+      <div class="version-line">Версия <span data-version>1.0.0</span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menuBtn" class="icon-btn menu-btn" aria-label="Открыть меню">☰</button>
+        <div class="top-title">
+          <h1 id="pageTitle">Главная</h1>
+          <p id="pageSubtitle">Учись · твори · создавай</p>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="searchBtn" aria-label="Поиск">⌕</button>
+          <button class="icon-btn" id="notifyBtn" aria-label="Уведомления">♢<span class="dot"></span></button>
+        </div>
+      </header>
+
+      <section id="content" class="content"></section>
+
+      <nav id="bottomNav" class="bottom-nav" aria-label="Нижнее меню"></nav>
+    </main>
+  </div>
+
+  <dialog id="settingsDialog" class="dialog-card">
+    <form method="dialog" class="dialog-head"><strong>Оформление</strong><button class="icon-btn">×</button></form>
+    <div class="settings-body">
+      <label class="setting-row">
+        <span><strong>Яркость</strong><small>Яркость интерфейса приложения</small></span>
+        <input id="brightnessRange" type="range" min="70" max="115" value="100" />
+      </label>
+      <div class="setting-block">
+        <strong>Цветовая гамма</strong>
+        <div id="themeChoices" class="theme-choices"></div>
+      </div>
+      <div class="version-line in-dialog">Версия приложения <span data-version>1.0.0</span></div>
+    </div>
+  </dialog>
+
+  <dialog id="fileDialog" class="dialog-card wide-dialog">
+    <form method="dialog" class="dialog-head"><strong id="fileDialogTitle">Файл</strong><button class="icon-btn">×</button></form>
+    <div id="fileDialogBody" class="settings-body"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="version.js?v=20260829-1400"></script>
+  <script src="app.js?v=20260829-1400"></script>
+</body>
+</html>
