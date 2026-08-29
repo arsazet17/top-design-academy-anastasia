@@ -172,7 +172,55 @@
   }
 
   $('#menuBtn').onclick=()=>{$('#sidebar').classList.add('open');$('#backdrop').hidden=false};$('#backdrop').onclick=closeSidebar;$('#searchBtn').onclick=()=>toast('Поиск будет искать по урокам, терминам и инструментам');$('#notifyBtn').onclick=()=>toast('Новых уведомлений нет');
+
+  // Установка PWA на Android: показываем свой экран только в браузере и только пока приложение не установлено.
+  let deferredInstallPrompt = null;
+  const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  const installDialog = $('#installDialog');
+  const installBtn = $('#installAppBtn');
+  const continueBtn = $('#continueBrowserBtn');
+  const installHelp = $('#installHelp');
+  const installDismissedKey = 'topDesignInstallDismissed';
+
+  function showInstallOffer(){
+    if(!installDialog || isStandalone() || localStorage.getItem(installDismissedKey)==='1') return;
+    if(!installDialog.open) installDialog.showModal();
+  }
+  function hideInstallOffer(){ if(installDialog?.open) installDialog.close(); }
+
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    localStorage.removeItem(installDismissedKey);
+    showInstallOffer();
+  });
+
+  window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    localStorage.removeItem(installDismissedKey);
+    hideInstallOffer();
+    toast('TOP Design Academy установлено ✓');
+  });
+
+  if(installBtn) installBtn.onclick = async () => {
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      const choice = await deferredInstallPrompt.userChoice.catch(()=>({outcome:'dismissed'}));
+      if(choice.outcome==='accepted') hideInstallOffer();
+      deferredInstallPrompt = null;
+      return;
+    }
+    installHelp.hidden = false;
+    installBtn.textContent = 'Открыть инструкцию установки';
+  };
+  if(continueBtn) continueBtn.onclick = () => {
+    localStorage.setItem(installDismissedKey,'1');
+    hideInstallOffer();
+  };
+
   render();
+  // Если браузер пока не отдал beforeinstallprompt, всё равно показываем понятный экран установки.
+  window.addEventListener('load',()=>setTimeout(showInstallOffer,450));
 
   // Автообновление PWA: без ручной кнопки. Новая сборка активирует новый SW и перезагружает приложение.
   if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register(`sw.js?v=${window.BUILD_ID||Date.now()}`);await reg.update();let refreshing=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(refreshing)return;refreshing=true;location.reload()});if(reg.waiting)reg.waiting.postMessage({type:'SKIP_WAITING'});reg.addEventListener('updatefound',()=>{const nw=reg.installing;if(!nw)return;nw.addEventListener('statechange',()=>{if(nw.state==='installed'&&navigator.serviceWorker.controller)nw.postMessage({type:'SKIP_WAITING'})})})}catch(e){console.warn('SW:',e)}})}
