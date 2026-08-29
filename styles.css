@@ -20,3 +20,20 @@ textarea,input[type="text"],input[type="search"]{width:100%;background:var(--pan
 .install-icon{width:112px;height:112px;border-radius:26px;display:block;margin:0 auto 12px;box-shadow:0 12px 30px rgba(106,52,72,.16)}
 .install-brand{font-weight:900;font-size:24px;line-height:1.1}.install-by{font-family:cursive;color:var(--accent);font-size:18px;margin:3px 0 18px}.install-card h2{margin:0 0 8px;font-size:22px}.install-card p{color:var(--muted);line-height:1.45;margin:0 0 18px}.install-main-btn{width:100%;font-size:16px;padding:14px 16px}.install-link{margin-top:8px;border:0;background:transparent;color:var(--muted);padding:10px 12px;font-weight:700;cursor:pointer}.install-help{margin-top:12px;padding:12px;border-radius:14px;background:var(--accent-soft);color:var(--text);font-size:13px;line-height:1.45;text-align:left}
 @media(display-mode:standalone){.install-dialog{display:none!important}}
+
+.module-hero{display:flex;gap:16px;align-items:flex-start;padding:22px;border:1px solid var(--line);border-radius:24px;background:var(--panel);margin:16px 0}
+.course-icon.big{width:70px;height:70px;min-width:70px;font-size:26px}
+.module-hero h2{margin:0 0 8px}.module-hero p{margin:0;color:var(--muted);line-height:1.55}
+.module-section{margin:16px 0;padding:20px;border:1px solid var(--line);border-radius:22px;background:var(--panel)}
+.module-section h3{margin:0 0 14px}.module-section>p{line-height:1.65}
+.theory-point{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;margin:12px 0}
+.theory-point>span{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-weight:800}
+.theory-point p{margin:2px 0;line-height:1.6}
+.qa-item{border-top:1px solid var(--line);padding:12px 0}.qa-item:first-child{border-top:0}
+.qa-item summary{cursor:pointer;font-weight:800}.qa-item p{margin:10px 0 0;line-height:1.55;color:var(--muted)}
+.search-box input{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--text);font:inherit}
+.search-results{display:grid;gap:10px;margin-top:14px}
+.search-hit{display:flex;flex-direction:column;gap:5px;text-align:left;width:100%;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--text);text-decoration:none;cursor:pointer}
+.search-hit span{font-size:13px;color:var(--muted);line-height:1.4}.search-hit:hover{border-color:var(--accent)}
+.search-hit.static{cursor:default}
+@media(max-width:620px){.module-hero{padding:16px}.module-section{padding:16px}}
