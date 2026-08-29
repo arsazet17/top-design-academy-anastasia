@@ -37,3 +37,19 @@ textarea,input[type="text"],input[type="search"]{width:100%;background:var(--pan
 .search-hit span{font-size:13px;color:var(--muted);line-height:1.4}.search-hit:hover{border-color:var(--accent)}
 .search-hit.static{cursor:default}
 @media(max-width:620px){.module-hero{padding:16px}.module-section{padding:16px}}
+
+/* Full textbook */
+.textbook-note{margin:14px 0 18px;padding:16px 18px;border-radius:18px;background:var(--accent-soft);border:1px solid var(--line)}
+.textbook-note p{margin:6px 0 0;line-height:1.55;color:var(--muted)}
+.lesson-chapters{display:grid;gap:11px}
+.lesson-chapter{width:100%;display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;text-align:left;padding:15px;border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);cursor:pointer}
+.chapter-num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-weight:900}
+.lesson-chapter strong{display:block;font-size:16px;margin-bottom:4px}.lesson-chapter small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--muted);line-height:1.35}.lesson-chapter>b{font-size:24px;color:var(--accent)}
+.lesson-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px;color:var(--muted)}
+.textbook-page{background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:clamp(20px,4vw,40px);box-shadow:var(--shadow);max-width:850px;margin:0 auto}
+.textbook-kicker{font-size:12px;letter-spacing:2px;color:var(--accent);font-weight:900}.textbook-page>h2{font-size:clamp(28px,5vw,42px);line-height:1.08;margin:8px 0 22px}
+.reading p{font-size:17px;line-height:1.72;margin:0 0 18px}.lesson-example,.lesson-task,.lesson-check-block{margin-top:24px;padding:18px;border-radius:18px}
+.lesson-example{background:var(--panel-2)}.lesson-task{background:var(--accent-soft);border:1px solid var(--line)}.lesson-check-block{border:1px solid var(--line)}
+.lesson-example h3,.lesson-task h3,.lesson-check-block h3{margin:0 0 10px}.lesson-example p,.lesson-task p,.lesson-check-block p{margin:0;line-height:1.6}
+.lesson-nav{display:flex;justify-content:space-between;gap:12px;max-width:850px;margin:16px auto 0}.lesson-nav button:disabled{opacity:.4}
+@media(max-width:620px){.textbook-page{padding:20px 17px}.reading p{font-size:16px}.lesson-nav{display:grid;grid-template-columns:1fr 1fr}}
