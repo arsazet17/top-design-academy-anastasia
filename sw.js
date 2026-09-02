@@ -1,4 +1,4 @@
-const BUILD_ID = '20260829-130717';
+const BUILD_ID = '20260902-110749';
 const CACHE = `top-design-${BUILD_ID}`;
 const CORE = [
   './',

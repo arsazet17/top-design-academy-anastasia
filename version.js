@@ -1,2 +1,2 @@
-window.APP_VERSION = "1.0.6";
-window.BUILD_ID = "20260829-130717";
+window.APP_VERSION = "1.0.7";
+window.BUILD_ID = "20260902-110749";
