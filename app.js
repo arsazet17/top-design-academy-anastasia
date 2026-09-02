@@ -7,7 +7,7 @@
   state.assignments ||= []; state.works ||= [];
 
   const nav = [
-    ['home','⌂','Главная'],['learn','▤','Учёба'],['homework','☑','Домашние задания'],['tools','▦','Инструменты'],
+    ['home','⌂','Главная'],['learn','▤','Учёба'],['homework','☑','Домашние задания'],['schedule','▣','Расписание занятий'],['tools','▦','Инструменты'],
     ['practice','✎','Практика'],['ai','✦','AI-помощник'],['glossary','Aᴢ','Словарь дизайнера'],['works','▱','Мои работы'],
     ['portfolio','▣','Портфолио'],['progress','▥','Прогресс'],['settings','⚙','Настройки']
   ];
@@ -151,6 +151,139 @@
   }
   function toolCards(arr){return arr.map(t=>`<div class="card tool-card"><div class="tool-logo">${t.logo}</div><div><h3>${t.n}</h3><div class="muted">${t.cat}</div></div><span>☆</span><p class="desc">${t.desc}</p><div class="tool-meta"><span class="tag ai">AI</span>${t.google?'<span class="tag">G Google-вход</span>':''}</div><button class="open-btn" data-url="${t.url}">Открыть</button></div>`).join('')}
 
+
+  const designSchedule = [
+    {
+      id:'mon', short:'ПН', day:'ПОНЕДЕЛЬНИК', tone:'violet',
+      rows:[
+        ['09:00 – 10:20', null, null],
+        ['10:30 – 11:50',
+          {subject:'Фирменный стиль',teacher:'Герасимова А. В.',room:'5'},
+          {subject:'Индизайн',teacher:'Иванова О. С.',room:'4'}],
+        ['12:10 – 13:30',
+          {subject:'Индизайн',teacher:'Иванова О. С.',room:'4'},
+          {subject:'Фирменный стиль',teacher:'Герасимова А. В.',room:'5'}],
+        ['13:40 – 15:00',
+          {subject:'Основы материаловедения',teacher:'Стогова Л. А.',room:'12'},
+          {subject:'Основы материаловедения',teacher:'Стогова Л. А.',room:'12'}]
+      ]
+    },
+    {
+      id:'tue', short:'ВТ', day:'ВТОРНИК', tone:'blue',
+      rows:[
+        ['09:00 – 10:20',
+          {subject:'Фирменный стиль',teacher:'Петрученко Г. В.',room:'4'},
+          {subject:'Дизайн-проектирование',teacher:'Крамерова Е. Э.',room:'5'}],
+        ['10:30 – 11:50',
+          {subject:'Дизайн-проектирование',teacher:'Крамерова Е. Э.',room:'5'},
+          {subject:'Фирменный стиль',teacher:'Петрученко Г. В.',room:'4'}],
+        ['12:10 – 13:30',
+          {subject:'Основы графики',teacher:'Петрученко Г. В.',room:'12'},
+          {subject:'Основы графики',teacher:'Герасимова А. В.',room:'5'}],
+        ['13:40 – 15:00',
+          {subject:'Основы графики',teacher:'Герасимова А. В.',room:'12'},
+          {subject:'Основы графики',teacher:'Герасимова А. В.',room:'12'}]
+      ]
+    },
+    {
+      id:'wed', short:'СР', day:'СРЕДА', tone:'green',
+      rows:[
+        ['09:00 – 10:20',
+          {subject:'Дизайн-проектирование',teacher:'Крамерова Е. Э.',room:'5'},
+          {subject:'Типографика',teacher:'Иванова О. С.',room:'12'}],
+        ['10:30 – 11:50',
+          {subject:'Типографика',teacher:'Иванова О. С.',room:'12'},
+          {subject:'Дизайн-проектирование',teacher:'Крамерова Е. Э.',room:'5'}],
+        ['12:10 – 13:30',
+          {subject:'Фирменный стиль',teacher:'Герасимова А. В.',room:'5'},
+          {subject:'Основы графики',teacher:'Петрученко Г. В.',room:'8'}],
+        ['13:40 – 15:00',
+          {subject:'Проектная графика',teacher:'Стогова Л. А.',room:'12'},
+          {subject:'Проектная графика',teacher:'Стогова Л. А.',room:'12'}]
+      ]
+    },
+    {
+      id:'thu', short:'ЧТ', day:'ЧЕТВЕРГ', tone:'orange',
+      rows:[
+        ['09:00 – 10:20',
+          null,
+          {subject:'Дизайн-проектирование',teacher:'Крамерова Е. Э.',room:'5'}],
+        ['10:30 – 11:50',
+          {subject:'Дизайн-проектирование',teacher:'Крамерова Е. Э.',room:'5'},
+          {subject:'Фирменный стиль',teacher:'Герасимова А. В.',room:'7'}],
+        ['12:10 – 13:30',
+          {subject:'Фирменный стиль',teacher:'Герасимова А. В.',room:'7'},
+          {subject:'Проектная графика',teacher:'Золиков М. Е.',room:'5'}],
+        ['13:40 – 15:00',
+          {subject:'Проектная графика',teacher:'Золиков М. Е.',room:'5'},
+          null]
+      ]
+    },
+    {
+      id:'fri', short:'ПТ', day:'ПЯТНИЦА', tone:'pink',
+      rows:[
+        ['09:00 – 10:20',
+          {subject:'Дизайн-проектирование',teacher:'Крамерова Е. Э.',room:'2'},
+          {subject:'Дизайн-проектирование',teacher:'Крамерова Е. Э.',room:'2'}],
+        ['10:30 – 11:50',
+          {subject:'Физкультура',teacher:'Ларионов В. В.',room:'2'},
+          {subject:'Физкультура',teacher:'Ларионов В. В.',room:'2'}],
+        ['12:10 – 13:30',
+          {subject:'Проектная графика',teacher:'Золиков М. Е.',room:'5'},
+          {subject:'Дизайн-проектирование',teacher:'Жевалун Е. В.',room:'4'}],
+        ['13:40 – 15:00',
+          {subject:'Дизайн-проектирование',teacher:'Жевалун Е. В.',room:'4'},
+          {subject:'Проектная графика',teacher:'Золиков М. Е.',room:'5'}]
+      ]
+    }
+  ];
+
+  function scheduleLessonCard(item, group){
+    if(!item) return `<div class="schedule-empty">— нет занятия —</div>`;
+    return `<div class="schedule-lesson group-${group}">
+      <div class="schedule-subject">${esc(item.subject)}</div>
+      <div class="schedule-meta">
+        <span class="schedule-teacher">♟ ${esc(item.teacher)}</span>
+        <span class="schedule-room">✅ Ауд №${esc(item.room)}</span>
+      </div>
+    </div>`;
+  }
+
+  function schedulePage(){
+    return `<div class="schedule-page">
+      <div class="schedule-head">
+        <div>
+          <div class="schedule-title-line"><span class="schedule-calendar">▣</span><div><h2>Расписание занятий</h2><p>2 курс · дизайнеры</p></div></div>
+          <div class="schedule-legend"><span>♟ Преподаватель</span><span>✅ Аудитория</span></div>
+        </div>
+        <div class="schedule-groups" aria-label="Группы">
+          <div class="schedule-group-badge g1"><strong>1 ГРУППА</strong><small>2 курс дизайнеры</small></div>
+          <div class="schedule-group-badge g2"><strong>2 ГРУППА</strong><small>2 курс дизайнеры</small></div>
+        </div>
+      </div>
+
+      <div class="schedule-desktop-head">
+        <div>ВРЕМЯ</div>
+        <div class="g1">♟ 2 КУРС ДИЗАЙНЕРЫ — 1 ГРУППА</div>
+        <div class="g2">♟ 2 КУРС ДИЗАЙНЕРЫ — 2 ГРУППА</div>
+      </div>
+
+      <div class="schedule-days">
+        ${designSchedule.map(d=>`<section class="schedule-day tone-${d.tone}">
+          <div class="schedule-day-name"><span class="day-cal">▣</span><strong>${d.short}</strong><small>${d.day}</small></div>
+          <div class="schedule-day-rows">
+            ${d.rows.map(r=>`<div class="schedule-row">
+              <div class="schedule-time">${r[0]}</div>
+              <div class="schedule-cell g1cell"><span class="mobile-group-label g1">1 ГРУППА</span>${scheduleLessonCard(r[1],1)}</div>
+              <div class="schedule-cell g2cell"><span class="mobile-group-label g2">2 ГРУППА</span>${scheduleLessonCard(r[2],2)}</div>
+            </div>`).join('')}
+          </div>
+        </section>`).join('')}
+      </div>
+      <div class="schedule-note">ℹ Расписание может меняться. Актуальность уточняйте у куратора группы.</div>
+    </div>`;
+  }
+
   function practice(){return `<div class="section-head"><div><h2>Практика</h2><p class="muted">Небольшие упражнения, чтобы знания сразу превращались в навык.</p></div></div><div class="grid two">${[
     ['Композиция за 15 минут','Сделай афишу только из круга, прямоугольника и текста.'],['Палитра из фотографии','Выбери 5 цветов из одного фото и собери гармоничную палитру.'],['Две шрифтовые пары','Собери строгую и дружелюбную пару шрифтов.'],['Редизайн предмета','Возьми упаковку дома и предложи новый визуальный стиль.']
   ].map((x,i)=>card(x[0],`<p>${x[1]}</p><button class="primary-btn practice-done" data-i="${i}">Выполнила +25 XP</button>`)).join('')}</div>`}
@@ -208,8 +341,8 @@
   function progressPage(){const pct=Math.min(100,state.xp/10);return `<div class="hero"><div class="card hero-main"><div class="hero-photo-wrap"><img class="hero-photo" src="assets/anastasia-profile.webp?v=${window.BUILD_ID||''}" alt="Anastasia"><div><h2>Anastasia</h2><p class="muted">Студент · графический дизайн</p><span class="badge">Уровень ${Math.max(1,Math.floor(state.xp/300)+1)}</span></div></div></div><div class="card"><h3>Общий прогресс</h3><div style="font-size:42px;font-weight:800;color:var(--accent)">${pct}%</div><div class="progress"><span style="width:${pct}%"></span></div><p class="muted">${state.xp} / 1000 XP</p></div></div><div class="section-head"><h2>Достижения</h2></div><div class="grid three">${[['Первые шаги','Первый модуль'],['Композиция','100 XP'],['Практика','Первая работа']].map(x=>card(x[0],`<div style="font-size:38px">🏅</div><p class="muted">${x[1]}</p>`)).join('')}</div>`}
 
   function renderPage(p){state.page=p;save();render()}
-  function render(){setTheme();renderNav();updateMeta();const p=state.page;const meta={home:['Главная','Учись · твори · создавай'],learn:['Учёба','От полного нуля до первых работ'],homework:['Домашние задания','Загрузить · выполнить с подсказками · выгрузить'],tools:['Инструменты','AI-сервисы и программы для дизайна'],practice:['Практика','Закрепляем знания руками'],ai:['AI-помощник','Объяснит, подскажет, даст упражнение'],glossary:['Словарь дизайнера','Понятные объяснения терминов'],works:['Мои работы','Черновики и выполненные проекты'],portfolio:['Портфолио','Лучшие работы'],progress:['Профиль и прогресс','Anastasia · студент']}[p]||['TOP Design',''];$('#pageTitle').textContent=meta[0];$('#pageSubtitle').textContent=meta[1];
-    const html={home:home,learn,homework,tools:toolsPage,practice,ai:aiPage,glossary:glossaryPage,works,portfolio,progress:progressPage}[p]?.()||home();$('#content').innerHTML=html;wirePage(p);
+  function render(){setTheme();renderNav();updateMeta();const p=state.page;const meta={home:['Главная','Учись · твори · создавай'],learn:['Учёба','От полного нуля до первых работ'],homework:['Домашние задания','Загрузить · выполнить с подсказками · выгрузить'],schedule:['Расписание занятий','2 курс · дизайнеры · 1 и 2 группа'],tools:['Инструменты','AI-сервисы и программы для дизайна'],practice:['Практика','Закрепляем знания руками'],ai:['AI-помощник','Объяснит, подскажет, даст упражнение'],glossary:['Словарь дизайнера','Понятные объяснения терминов'],works:['Мои работы','Черновики и выполненные проекты'],portfolio:['Портфолио','Лучшие работы'],progress:['Профиль и прогресс','Anastasia · студент']}[p]||['TOP Design',''];$('#pageTitle').textContent=meta[0];$('#pageSubtitle').textContent=meta[1];
+    const html={home:home,learn,homework,schedule:schedulePage,tools:toolsPage,practice,ai:aiPage,glossary:glossaryPage,works,portfolio,progress:progressPage}[p]?.()||home();$('#content').innerHTML=html;wirePage(p);
   }
   function wirePage(p){
     $$('[data-go]').forEach(b=>b.onclick=()=>setPage(b.dataset.go));
